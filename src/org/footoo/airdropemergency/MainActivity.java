@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		}
 		initViews();
 
-		// ServerRunner.run(SimpleFileServer.class);
+//		 ServerRunner.run(SimpleFileServer.class);
 		try {
 			new SimpleFileServer(51345).start();
 		} catch (IOException e) {

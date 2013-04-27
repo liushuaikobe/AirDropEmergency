@@ -9,6 +9,8 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import android.util.Log;
+
 /**
  * A simple, tiny, nicely embeddable HTTP 1.0 (partially 1.1) server in Java
  * <p/>
