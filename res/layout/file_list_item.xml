@@ -8,14 +8,12 @@
         android:id="@+id/file_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:textIsSelectable="true" />
+        android:layout_marginLeft="15dp" />
 
     <TextView
         android:id="@+id/file_lat_modify_time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:textIsSelectable="true" />
+        android:layout_marginLeft="15dp" />
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,9 +54,20 @@ public class FileViewFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			fileLv.setAdapter(new FileLvAdapter(fileList));
+			fileLv.setOnItemClickListener(fileLvItemClickListener);
 			switcher.showNext();
 		}
 	}
+
+	private AdapterView.OnItemClickListener fileLvItemClickListener = new AdapterView.OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> views, View view, int position,
+				long id) {
+			FileAccessUtil.viewFile(fileList[position].getAbsolutePath(),
+					getActivity());
+		}
+	};
 
 	/**
 	 * 显示文件列表的Adapter

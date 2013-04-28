@@ -2,6 +2,10 @@ package org.footoo.airdropemergency.util;
 
 import java.io.File;
 
+import org.footoo.airdropemergency.R;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 
 public abstract class FileAccessUtil {
@@ -85,5 +89,76 @@ public abstract class FileAccessUtil {
 	public static File[] getFillList(String dirPath) {
 		File file = new File(dirPath);
 		return file.listFiles();
+	}
+
+	/**
+	 * 检查指定文件的后缀是否支持
+	 * 
+	 * @param checkItsEnd
+	 * @param fileEndings
+	 * @return
+	 */
+	public static boolean checkEndsWithInStringArray(String checkItsEnd,
+			String[] fileEndings) {
+		for (String aEnd : fileEndings) {
+			if (checkItsEnd.endsWith(aEnd))
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 调用系统默认应用打开文件
+	 * 
+	 * @param filePath
+	 * @param mContext
+	 */
+	public static void viewFile(String filePath, Context mContext) {
+		if (!filePath.equals("") && filePath != null) {
+			Intent intent;
+			if (checkEndsWithInStringArray(filePath, mContext.getResources()
+					.getStringArray(R.array.fileEndingImage))) {
+				intent = FileOpenHelper.getImageFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingWebText))) {
+				intent = FileOpenHelper.getHtmlFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingPackage))) {
+				intent = FileOpenHelper.getApkFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingAudio))) {
+				intent = FileOpenHelper.getAudioFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingVideo))) {
+				intent = FileOpenHelper.getVideoFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingText))) {
+				intent = FileOpenHelper.getTextFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingPdf))) {
+				intent = FileOpenHelper.getPdfFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingWord))) {
+				intent = FileOpenHelper.getWordFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingExcel))) {
+				intent = FileOpenHelper.getExcelFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else if (checkEndsWithInStringArray(filePath, mContext
+					.getResources().getStringArray(R.array.fileEndingPPT))) {
+				intent = FileOpenHelper.getPPTFileIntent(new File(filePath));
+				mContext.startActivity(intent);
+			} else {
+				ToastUtil.showShortToast(mContext, "无法打开相应文件！");
+			}
+		}
 	}
 }
