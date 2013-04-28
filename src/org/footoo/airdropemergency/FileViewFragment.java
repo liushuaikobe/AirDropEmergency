@@ -15,7 +15,11 @@ import org.footoo.airdropemergency.util.Utils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,6 +45,7 @@ public class FileViewFragment extends Fragment {
 		switcher = (ViewSwitcher) mainView
 				.findViewById(R.id.file_view_switcher);
 		fileLv = (ListView) mainView.findViewById(R.id.file_list);
+		setHasOptionsMenu(true);
 		new ScanFileTask().execute("begin");
 		return mainView;
 	}
@@ -125,6 +130,56 @@ public class FileViewFragment extends Fragment {
 			return true;
 		}
 	};
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.main, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			DialogHelper.showConfirmDialog(
+					getActivity(),
+					new DialogOperationDone() {
+
+						@Override
+						public void ok() {
+							try {
+								for (File file : fileList) {
+									file.delete();
+								}
+								fileList.clear();
+								fileLvAdapter.notifyDataSetChanged();
+								ToastUtil.showShortToast(
+										getActivity(),
+										getActivity().getString(
+												R.string.delete_success));
+							} catch (Exception e) {
+								e.printStackTrace();
+								ToastUtil.showShortToast(
+										getActivity(),
+										getActivity().getString(
+												R.string.delete_fail));
+							}
+						}
+
+						@Override
+						public void cancle() {
+							// do nothing...
+						}
+					},
+					getActivity().getResources().getString(R.string.confirm),
+					getActivity().getResources().getString(
+							R.string.confirm_delete_all_files));
+			break;
+
+		default:
+			break;
+		}
+		return true;
+	}
 
 	/**
 	 * 显示文件列表的Adapter

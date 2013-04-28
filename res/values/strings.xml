@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">AirDropEmergency</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">删除所有文件</string>
     <string name="hello_world">Hello world!</string>
     <string name="wifi_not_avaliable">wifi不可用</string>
     <string name="input_on_browser">请在浏览器地址栏中输入：</string>
@@ -17,6 +17,7 @@
     
     <string name="confirm">确认</string>
     <string name="confirm_dialog_msg">确认删除文件吗？</string>
+    <string name="confirm_delete_all_files">确认删除所有文件吗？</string>
     <string name="delete_success">删除成功！</string>
     <string name="delete_fail">删除失败！</string>
 

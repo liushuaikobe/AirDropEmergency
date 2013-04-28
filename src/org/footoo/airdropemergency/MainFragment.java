@@ -73,7 +73,7 @@ public class MainFragment extends Fragment {
 			public void handleMessage(Message msg) {
 				Bundle bundle = msg.getData();
 				Log.i("ip", bundle.getString("ip") + "");
-				addrTv.setText(bundle.getString("ip") + ":" + PORT);
+				addrTv.setText("http://" + bundle.getString("ip") + ":" + PORT);
 			}
 		};
 
@@ -92,7 +92,7 @@ public class MainFragment extends Fragment {
 
 		infoTv.setText(mContext.getResources().getString(
 				R.string.input_on_browser));
-		
+
 		new Thread(runnable).start();
 	}
 
