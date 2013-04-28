@@ -57,8 +57,6 @@ public class MainFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		// ¹Ø±Õ·şÎñÆ÷
-		ServerRunner.stopServer();
 	}
 
 	private void initViews() {

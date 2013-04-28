@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class ServerRunner {
 	private static SimpleFileServer server;
+	public static boolean serverIsRunning = false;
 
 	/**
 	 * 在指定端口启动server
@@ -13,7 +14,11 @@ public class ServerRunner {
 	public static void startServer(int port) {
 		server = SimpleFileServerFactory.getInstance(port);
 		try {
-			server.start();
+			if (!serverIsRunning) {
+				server.start();
+				serverIsRunning = true;
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -25,6 +30,7 @@ public class ServerRunner {
 	public static void stopServer() {
 		if (server != null) {
 			server.stop();
+			serverIsRunning = false;
 		}
 	}
 }
