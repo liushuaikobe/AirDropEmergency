@@ -20,4 +20,6 @@
     <string name="delete_success">删除成功！</string>
     <string name="delete_fail">删除失败！</string>
 
+    <string name="about_title">2013.04.28 FoOTOo Hackathon</string>
+    <string name="developer">Developer : liushuaikobe</string>
 </resources>

@@ -37,7 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dip"
             android:text="@string/hello_world"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>

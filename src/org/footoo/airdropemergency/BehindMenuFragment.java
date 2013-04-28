@@ -44,6 +44,11 @@ public class BehindMenuFragment extends ListFragment {
 		case 1:
 			newContent = new FileViewFragment();
 			break;
+		case 2:
+			break;
+		case 3:
+			newContent = new AboutFragment();
+			break;
 		}
 		if (newContent != null) {
 			switchFragment(newContent);
