@@ -45,6 +45,7 @@ public class BehindMenuFragment extends ListFragment {
 			newContent = new FileViewFragment();
 			break;
 		case 2:
+			newContent = new ConfigFragment();
 			break;
 		case 3:
 			newContent = new AboutFragment();
