@@ -2,10 +2,15 @@ package org.footoo.airdropemergency;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.footoo.airdropemergency.constvalue.ConstValue;
+import org.footoo.airdropemergency.util.DialogHelper;
+import org.footoo.airdropemergency.util.DialogHelper.DialogOperationDone;
 import org.footoo.airdropemergency.util.FileAccessUtil;
+import org.footoo.airdropemergency.util.ToastUtil;
+import org.footoo.airdropemergency.util.Utils;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,11 +26,13 @@ import android.widget.ViewSwitcher;
 
 public class FileViewFragment extends Fragment {
 
-	private File[] fileList;
+	private ArrayList<File> fileList;
 
 	private View mainView;
 	private ViewSwitcher switcher;
 	private ListView fileLv;
+
+	private BaseAdapter fileLvAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,25 +54,75 @@ public class FileViewFragment extends Fragment {
 
 		@Override
 		protected String doInBackground(String... params) {
-			fileList = FileAccessUtil.getFillList(ConstValue.BASE_DIR);
+			fileList = Utils.toArrayList(FileAccessUtil
+					.getFillList(ConstValue.BASE_DIR));
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(String result) {
-			fileLv.setAdapter(new FileLvAdapter(fileList));
+			fileLvAdapter = new FileLvAdapter(fileList);
+			fileLv.setAdapter(fileLvAdapter);
 			fileLv.setOnItemClickListener(fileLvItemClickListener);
+			fileLv.setOnItemLongClickListener(fileLvItemLongClickListener);
 			switcher.showNext();
 		}
 	}
 
+	/**
+	 * 文件查看的ListView的点击事件
+	 */
 	private AdapterView.OnItemClickListener fileLvItemClickListener = new AdapterView.OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> views, View view, int position,
 				long id) {
-			FileAccessUtil.viewFile(fileList[position].getAbsolutePath(),
+			FileAccessUtil.viewFile(fileList.get(position).getAbsolutePath(),
 					getActivity());
+		}
+	};
+
+	/**
+	 * 文件查看的ListView的长按事件
+	 */
+	private AdapterView.OnItemLongClickListener fileLvItemLongClickListener = new AdapterView.OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> views, View view,
+				int position, long id) {
+			final int fPosition = position;
+			DialogHelper.showConfirmDialog(
+					getActivity(),
+					new DialogOperationDone() {
+
+						@Override
+						public void ok() {
+							try {
+								fileList.get(fPosition).delete();
+								fileList.remove(fPosition);
+								fileLvAdapter.notifyDataSetChanged();
+								ToastUtil.showShortToast(
+										getActivity(),
+										getActivity().getResources().getString(
+												R.string.delete_success));
+							} catch (Exception e) {
+								ToastUtil.showShortToast(
+										getActivity(),
+										getActivity().getString(
+												R.string.delete_fail));
+								e.printStackTrace();
+							}
+						}
+
+						@Override
+						public void cancle() {
+							// do nothing
+						}
+					},
+					getActivity().getResources().getString(R.string.confirm),
+					getActivity().getResources().getString(
+							R.string.confirm_dialog_msg));
+			return true;
 		}
 	};
 
@@ -77,17 +134,17 @@ public class FileViewFragment extends Fragment {
 	 */
 	private class FileLvAdapter extends BaseAdapter {
 
-		private File[] files;
+		private ArrayList<File> files;
 		private SimpleDateFormat simpleDateFormat;
 
-		public FileLvAdapter(File[] files) {
+		public FileLvAdapter(ArrayList<File> files) {
 			this.files = files;
 			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		}
 
 		@Override
 		public int getCount() {
-			return files.length;
+			return files.size();
 		}
 
 		@Override
@@ -115,9 +172,9 @@ public class FileViewFragment extends Fragment {
 			} else {
 				holder = (ItemHolder) convertView.getTag();
 			}
-			holder.fileName_tv.setText(files[position].getName());
+			holder.fileName_tv.setText(files.get(position).getName());
 			holder.fileLastModifyTime_tv.setText(simpleDateFormat
-					.format(new Date(files[position].lastModified())));
+					.format(new Date(files.get(position).lastModified())));
 			return convertView;
 		}
 

@@ -1,5 +1,11 @@
 package org.footoo.airdropemergency.util;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 public abstract class Utils {
 	/**
 	 * 把int型的IP地址转换为可读的十进制IP
@@ -19,5 +25,34 @@ public abstract class Utils {
 	 */
 	public static boolean strIsEmpty(String str) {
 		return str.equals("") || str == null;
+	}
+
+	/**
+	 * 把一个文件数组转换成ArrayList
+	 * 
+	 * @param fileArray
+	 * @return
+	 */
+	public static ArrayList<File> toArrayList(File[] fileArray) {
+		ArrayList<File> list = new ArrayList<File>();
+		for (File f : fileArray) {
+			list.add(f);
+		}
+		return list;
+	}
+
+	/**
+	 * 判断wifi是否连接
+	 * 
+	 * @param info
+	 * @return
+	 */
+	public static boolean isWifiConnected(WifiManager wifiManager,
+			WifiInfo wifiInfo) {
+		int ipAddress = wifiInfo == null ? 0 : wifiInfo.getIpAddress();
+		if (wifiManager.isWifiEnabled() && ipAddress != 0) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
 	private WifiInfo wifiInfo;
 
 	private TextView addrTv;
+	private TextView infoTv;
 
 	private View mainView;
 
@@ -62,6 +63,7 @@ public class MainFragment extends Fragment {
 
 	private void initViews() {
 		addrTv = (TextView) mainView.findViewById(R.id.addr_tv);
+		infoTv = (TextView) mainView.findViewById(R.id.main_info_tv);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -81,6 +83,16 @@ public class MainFragment extends Fragment {
 
 		ConstValue.BASE_DIR = FileAccessUtil.createDir(ConstValue.DIR_NAME);
 
+		// ≈–∂œwifi «∑Òø…”√
+		if (!Utils.isWifiConnected(wifiManager, wifiInfo)) {
+			infoTv.setText(mContext.getResources().getString(
+					R.string.wifi_not_avaliable));
+			return;
+		}
+
+		infoTv.setText(mContext.getResources().getString(
+				R.string.input_on_browser));
+		
 		new Thread(runnable).start();
 	}
 
