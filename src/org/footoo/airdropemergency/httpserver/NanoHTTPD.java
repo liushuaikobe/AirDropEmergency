@@ -102,6 +102,7 @@ public abstract class NanoHTTPD {
 	 * Throws an IOException if the socket is already in use
 	 */
 	public void start() throws IOException {
+		Log.i("NanoHTTPD", "server start");
 		myServerSocket = new ServerSocket();
 		myServerSocket.bind((hostname != null) ? new InetSocketAddress(
 				hostname, myPort) : new InetSocketAddress(myPort));
@@ -112,6 +113,9 @@ public abstract class NanoHTTPD {
 				do {
 					try {
 						final Socket finalAccept = myServerSocket.accept();
+						Log.i("NanoHTTPD",
+								"accept request from "
+										+ finalAccept.getInetAddress());
 						InputStream inputStream = finalAccept.getInputStream();
 						OutputStream outputStream = finalAccept
 								.getOutputStream();
@@ -145,6 +149,7 @@ public abstract class NanoHTTPD {
 	 * Stops the server.
 	 */
 	public void stop() {
+		Log.i("NanoHTTPD", "server stop");
 		try {
 			myServerSocket.close();
 			myThread.join();

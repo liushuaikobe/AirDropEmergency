@@ -2,34 +2,29 @@ package org.footoo.airdropemergency.httpserver;
 
 import java.io.IOException;
 
-import android.util.Log;
-
 public class ServerRunner {
-	public static void run(Class serverClass) {
+	private static SimpleFileServer server;
+
+	/**
+	 * 在指定端口启动server
+	 * 
+	 * @param port
+	 */
+	public static void startServer(int port) {
+		server = SimpleFileServerFactory.getInstance(port);
 		try {
-			executeInstance((NanoHTTPD) serverClass.newInstance());
-		} catch (Exception e) {
+			server.start();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void executeInstance(NanoHTTPD server) {
-		try {
-			server.start();
-			Log.i("air", "server start..");
-		} catch (IOException ioe) {
-			System.err.println("Couldn't start server:\n" + ioe);
-			System.exit(-1);
+	/**
+	 * 关闭服务器
+	 */
+	public static void stopServer() {
+		if (server != null) {
+			server.stop();
 		}
-
-		System.out.println("Server started, Hit Enter to stop.\n");
-
-		try {
-			System.in.read();
-		} catch (Throwable ignored) {
-		}
-
-		server.stop();
-		System.out.println("Server stopped.\n");
 	}
 }

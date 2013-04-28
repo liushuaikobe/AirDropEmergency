@@ -4,5 +4,10 @@
     <string name="app_name">AirDropEmergency</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="main">AirDropEmergency</string>
+    <string name="have_uploaded">已上传</string>
+    <string name="config">设置</string>
+    <string name="about">关于</string>
 
 </resources>

@@ -61,4 +61,29 @@ public abstract class FileAccessUtil {
 		}
 		return f;
 	}
+
+	/**
+	 * 解析FileName字段得到文件名字
+	 * 
+	 * @param rawName
+	 * @return
+	 */
+	public static String decodeFileName(String rawName) {
+		String fileName = rawName;
+		if (fileName.contains("\\")) {
+			fileName = fileName.substring(fileName.lastIndexOf("\\"));
+		}
+		return fileName;
+	}
+
+	/**
+	 * 返回一个文件夹下的所有文件
+	 * 
+	 * @param dirPath
+	 * @return
+	 */
+	public static File[] getFillList(String dirPath) {
+		File file = new File(dirPath);
+		return file.listFiles();
+	}
 }
