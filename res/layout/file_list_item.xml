@@ -8,12 +8,16 @@
         android:id="@+id/file_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dip"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/file_lat_modify_time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dip" />
 
 </LinearLayout>
