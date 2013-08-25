@@ -14,11 +14,7 @@ import org.footoo.airdropemergency.util.Utils;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,7 +23,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-public class FileViewFragment extends Fragment {
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class FileViewFragment extends SherlockFragment {
 
 	private ArrayList<File> fileList;
 
@@ -38,13 +39,18 @@ public class FileViewFragment extends Fragment {
 	private BaseAdapter fileLvAdapter;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mainView = inflater.inflate(R.layout.file_view, null);
 		switcher = (ViewSwitcher) mainView
 				.findViewById(R.id.file_view_switcher);
 		fileLv = (ListView) mainView.findViewById(R.id.file_list);
-		setHasOptionsMenu(true);
 		new ScanFileTask().execute("begin");
 		return mainView;
 	}
@@ -130,8 +136,12 @@ public class FileViewFragment extends Fragment {
 		}
 	};
 
+	/**
+	 * 因为Fragment所属的Activity是继承的SherlockFragmentActivity， 因此Fragment必须要继承自SherlockFragment而非Fragment
+	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.main, menu);
 	}
 

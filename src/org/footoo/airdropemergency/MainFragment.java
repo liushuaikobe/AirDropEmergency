@@ -7,6 +7,8 @@ import org.footoo.airdropemergency.httpserver.ServerRunner;
 import org.footoo.airdropemergency.util.FileAccessUtil;
 import org.footoo.airdropemergency.util.Utils;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
@@ -14,7 +16,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 @SuppressLint("ValidFragment")
-public class MainFragment extends Fragment {
+public class MainFragment extends SherlockFragment {
 
 	private Context mContext;
 
