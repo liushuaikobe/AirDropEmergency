@@ -137,7 +137,8 @@ public class FileViewFragment extends SherlockFragment {
 	};
 
 	/**
-	 * 因为Fragment所属的Activity是继承的SherlockFragmentActivity， 因此Fragment必须要继承自SherlockFragment而非Fragment
+	 * 因为Fragment所属的Activity是继承的SherlockFragmentActivity，
+	 * 因此Fragment必须要继承自SherlockFragment而非Fragment
 	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -149,6 +150,11 @@ public class FileViewFragment extends SherlockFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
+			if (fileList.size() < 1) {
+				ToastUtil.showShortToast(getActivity(), getActivity()
+						.getString(R.string.no_file));
+				return true;
+			}
 			DialogHelper.showConfirmDialog(
 					getActivity(),
 					new DialogOperationDone() {
