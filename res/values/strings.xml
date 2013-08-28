@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="wifi_not_avaliable">wifi不可用</string>
     <string name="input_on_browser">请在浏览器地址栏中输入：</string>
+    <string name="unknown_error">未知错误</string>
     
     <string name="main">AirDropEmergency</string>
     <string name="have_uploaded">已上传</string>

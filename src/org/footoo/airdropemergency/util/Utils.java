@@ -50,9 +50,6 @@ public abstract class Utils {
 	public static boolean isWifiConnected(WifiManager wifiManager,
 			WifiInfo wifiInfo) {
 		int ipAddress = wifiInfo == null ? 0 : wifiInfo.getIpAddress();
-		if (wifiManager.isWifiEnabled() && ipAddress != 0) {
-			return true;
-		}
-		return false;
+		return wifiManager.isWifiEnabled() && ipAddress != 0;
 	}
 }
