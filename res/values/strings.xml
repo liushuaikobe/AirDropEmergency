@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="wifi_not_avaliable">wifi不可用</string>
     <string name="input_on_browser">请在浏览器地址栏中输入：</string>
+    <string name="unknown_error">未知错误</string>
     
     <string name="main">AirDropEmergency</string>
     <string name="have_uploaded">已上传</string>
@@ -20,6 +21,7 @@
     <string name="confirm_delete_all_files">确认删除所有文件吗？</string>
     <string name="delete_success">删除成功！</string>
     <string name="delete_fail">删除失败！</string>
+    <string name="no_file">没有任何文件！</string>
 
     <string name="double_click_to_exit">再按一次退出程序</string>
     
